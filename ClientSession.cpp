@@ -102,11 +102,12 @@ void ClientSession::writeNextBufferInQueueIfNecessary() {
 						*buffer) };
 		auto sharedThis = shared_from_this();
 		boost::asio::async_write(m_clientSocket, writeBufferArray,
-				m_strand.wrap([=] (const boost::system::error_code& error,
-						size_t bytesWritten)
-				{
-					sharedThis->writeComplete(error);
-				}));
+				m_strand.wrap(
+						[sharedThis] (const boost::system::error_code& error,
+								size_t bytesWritten)
+						{
+							sharedThis->writeComplete(error);
+						}));
 	}
 }
 
@@ -130,7 +131,7 @@ void ClientSession::readHeader() {
 	auto sharedThis = shared_from_this();
 	boost::asio::async_read(m_clientSocket,
 			boost::asio::buffer(m_readBuffer, 4),
-			m_strand.wrap([=] (const boost::system::error_code& error,
+			m_strand.wrap([sharedThis] (const boost::system::error_code& error,
 					size_t bytesTransferred)
 			{
 				sharedThis->readHeaderComplete(error, bytesTransferred);
@@ -164,7 +165,7 @@ void ClientSession::readPayload(size_t payloadSize) {
 	auto sharedThis = shared_from_this();
 	boost::asio::async_read(m_clientSocket,
 			boost::asio::buffer(m_readBuffer, payloadSize),
-			m_strand.wrap([=] (const boost::system::error_code& error,
+			m_strand.wrap([sharedThis] (const boost::system::error_code& error,
 					size_t bytesTransferred)
 			{
 				sharedThis->readPayloadComplete(error, bytesTransferred);
