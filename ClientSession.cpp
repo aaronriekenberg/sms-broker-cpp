@@ -48,6 +48,8 @@ void ClientSession::writeSerializedBrokerToClientMessage(
 
 void ClientSession::terminate() {
 	if (!m_terminated) {
+		m_terminated = true;
+
 		m_clientSocket.close();
 		if (!m_connectionString.empty()) {
 			Log::getInfoInstance() << "disconnect client to broker "
@@ -59,8 +61,6 @@ void ClientSession::terminate() {
 					*this);
 		}
 		m_subscribedTopics.clear();
-
-		m_terminated = true;
 	}
 }
 
