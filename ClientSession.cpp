@@ -32,7 +32,7 @@ boost::asio::ip::tcp::socket& ClientSession::getClientSocket() {
 
 void ClientSession::handleClientSocketAccepted() {
 	auto sharedThis = shared_from_this();
-	m_strand.dispatch([=] {
+	m_strand.dispatch([sharedThis] {
 		sharedThis->handleClientSocketAcceptedInStrand();
 	});
 }
@@ -41,7 +41,7 @@ void ClientSession::writeSerializedBrokerToClientMessage(
 		ConstBufferSharedPtr pSerializedBuffer) {
 	auto sharedThis = shared_from_this();
 	m_strand.dispatch(
-			[=] {
+			[sharedThis, pSerializedBuffer] {
 				sharedThis->writeSerializedBrokerToClientMessageInStrand(pSerializedBuffer);
 			});
 }
