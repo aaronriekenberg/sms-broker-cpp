@@ -5,6 +5,7 @@ namespace smsbroker {
 
 Topic& SharedTopicContainer::getTopic(const std::string& topicName) {
 	std::lock_guard<std::mutex> lock(m_mutex);
+
 	Topic* pTopic = nullptr;
 	auto i = m_topicNameToTopic.find(topicName);
 	if (i != m_topicNameToTopic.end()) {
