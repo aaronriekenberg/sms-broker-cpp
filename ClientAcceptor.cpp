@@ -25,7 +25,7 @@ void ClientAcceptor::registerForAccept() {
 	auto pSession = ClientSession::create(m_acceptor.get_io_service());
 	auto sharedThis = shared_from_this();
 	m_acceptor.async_accept(pSession->getClientSocket(),
-			[=] (const boost::system::error_code& error)
+			[sharedThis, pSession] (const boost::system::error_code& error)
 			{
 				sharedThis->handleAccept(pSession, error);
 			});
