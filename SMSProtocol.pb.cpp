@@ -176,6 +176,7 @@ const int ClientToBrokerMessage::kMessagePayloadFieldNumber;
 ClientToBrokerMessage::ClientToBrokerMessage()
   : ::google::protobuf::Message() {
   SharedCtor();
+  // @@protoc_insertion_point(constructor:sms.protocol.protobuf.ClientToBrokerMessage)
 }
 
 void ClientToBrokerMessage::InitAsDefaultInstance() {
@@ -185,25 +186,28 @@ ClientToBrokerMessage::ClientToBrokerMessage(const ClientToBrokerMessage& from)
   : ::google::protobuf::Message() {
   SharedCtor();
   MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:sms.protocol.protobuf.ClientToBrokerMessage)
 }
 
 void ClientToBrokerMessage::SharedCtor() {
+  ::google::protobuf::internal::GetEmptyString();
   _cached_size_ = 0;
   messagetype_ = 0;
-  topicname_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-  messagepayload_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  topicname_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  messagepayload_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
 ClientToBrokerMessage::~ClientToBrokerMessage() {
+  // @@protoc_insertion_point(destructor:sms.protocol.protobuf.ClientToBrokerMessage)
   SharedDtor();
 }
 
 void ClientToBrokerMessage::SharedDtor() {
-  if (topicname_ != &::google::protobuf::internal::kEmptyString) {
+  if (topicname_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     delete topicname_;
   }
-  if (messagepayload_ != &::google::protobuf::internal::kEmptyString) {
+  if (messagepayload_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     delete messagepayload_;
   }
   if (this != default_instance_) {
@@ -232,15 +236,15 @@ ClientToBrokerMessage* ClientToBrokerMessage::New() const {
 }
 
 void ClientToBrokerMessage::Clear() {
-  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+  if (_has_bits_[0 / 32] & 7) {
     messagetype_ = 0;
     if (has_topicname()) {
-      if (topicname_ != &::google::protobuf::internal::kEmptyString) {
+      if (topicname_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
         topicname_->clear();
       }
     }
     if (has_messagepayload()) {
-      if (messagepayload_ != &::google::protobuf::internal::kEmptyString) {
+      if (messagepayload_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
         messagepayload_->clear();
       }
     }
@@ -251,14 +255,17 @@ void ClientToBrokerMessage::Clear() {
 
 bool ClientToBrokerMessage::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) return false
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  while ((tag = input->ReadTag()) != 0) {
+  // @@protoc_insertion_point(parse_start:sms.protocol.protobuf.ClientToBrokerMessage)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
       // required .sms.protocol.protobuf.ClientToBrokerMessage.ClientToBrokerMessageType messageType = 1;
       case 1: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+        if (tag == 8) {
           int value;
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
@@ -269,7 +276,7 @@ bool ClientToBrokerMessage::MergePartialFromCodedStream(
             mutable_unknown_fields()->AddVarint(1, value);
           }
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(18)) goto parse_topicName;
         break;
@@ -277,16 +284,16 @@ bool ClientToBrokerMessage::MergePartialFromCodedStream(
 
       // required string topicName = 2;
       case 2: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+        if (tag == 18) {
          parse_topicName:
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_topicname()));
-          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
             this->topicname().data(), this->topicname().length(),
-            ::google::protobuf::internal::WireFormat::PARSE);
+            ::google::protobuf::internal::WireFormat::PARSE,
+            "topicname");
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(26)) goto parse_messagePayload;
         break;
@@ -294,23 +301,23 @@ bool ClientToBrokerMessage::MergePartialFromCodedStream(
 
       // optional bytes messagePayload = 3;
       case 3: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+        if (tag == 26) {
          parse_messagePayload:
           DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
                 input, this->mutable_messagepayload()));
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
-        if (input->ExpectAtEnd()) return true;
+        if (input->ExpectAtEnd()) goto success;
         break;
       }
 
       default: {
-      handle_uninterpreted:
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          return true;
+          goto success;
         }
         DO_(::google::protobuf::internal::WireFormat::SkipField(
               input, tag, mutable_unknown_fields()));
@@ -318,12 +325,18 @@ bool ClientToBrokerMessage::MergePartialFromCodedStream(
       }
     }
   }
+success:
+  // @@protoc_insertion_point(parse_success:sms.protocol.protobuf.ClientToBrokerMessage)
   return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:sms.protocol.protobuf.ClientToBrokerMessage)
+  return false;
 #undef DO_
 }
 
 void ClientToBrokerMessage::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:sms.protocol.protobuf.ClientToBrokerMessage)
   // required .sms.protocol.protobuf.ClientToBrokerMessage.ClientToBrokerMessageType messageType = 1;
   if (has_messagetype()) {
     ::google::protobuf::internal::WireFormatLite::WriteEnum(
@@ -332,16 +345,17 @@ void ClientToBrokerMessage::SerializeWithCachedSizes(
 
   // required string topicName = 2;
   if (has_topicname()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
       this->topicname().data(), this->topicname().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE);
-    ::google::protobuf::internal::WireFormatLite::WriteString(
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "topicname");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       2, this->topicname(), output);
   }
 
   // optional bytes messagePayload = 3;
   if (has_messagepayload()) {
-    ::google::protobuf::internal::WireFormatLite::WriteBytes(
+    ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
       3, this->messagepayload(), output);
   }
 
@@ -349,10 +363,12 @@ void ClientToBrokerMessage::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
   }
+  // @@protoc_insertion_point(serialize_end:sms.protocol.protobuf.ClientToBrokerMessage)
 }
 
 ::google::protobuf::uint8* ClientToBrokerMessage::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:sms.protocol.protobuf.ClientToBrokerMessage)
   // required .sms.protocol.protobuf.ClientToBrokerMessage.ClientToBrokerMessageType messageType = 1;
   if (has_messagetype()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
@@ -361,9 +377,10 @@ void ClientToBrokerMessage::SerializeWithCachedSizes(
 
   // required string topicName = 2;
   if (has_topicname()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
       this->topicname().data(), this->topicname().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE);
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "topicname");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         2, this->topicname(), target);
@@ -380,6 +397,7 @@ void ClientToBrokerMessage::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         unknown_fields(), target);
   }
+  // @@protoc_insertion_point(serialize_to_array_end:sms.protocol.protobuf.ClientToBrokerMessage)
   return target;
 }
 
@@ -515,6 +533,7 @@ const int BrokerToClientMessage::kMessagePayloadFieldNumber;
 BrokerToClientMessage::BrokerToClientMessage()
   : ::google::protobuf::Message() {
   SharedCtor();
+  // @@protoc_insertion_point(constructor:sms.protocol.protobuf.BrokerToClientMessage)
 }
 
 void BrokerToClientMessage::InitAsDefaultInstance() {
@@ -524,25 +543,28 @@ BrokerToClientMessage::BrokerToClientMessage(const BrokerToClientMessage& from)
   : ::google::protobuf::Message() {
   SharedCtor();
   MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:sms.protocol.protobuf.BrokerToClientMessage)
 }
 
 void BrokerToClientMessage::SharedCtor() {
+  ::google::protobuf::internal::GetEmptyString();
   _cached_size_ = 0;
   messagetype_ = 0;
-  topicname_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-  messagepayload_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  topicname_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  messagepayload_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
 BrokerToClientMessage::~BrokerToClientMessage() {
+  // @@protoc_insertion_point(destructor:sms.protocol.protobuf.BrokerToClientMessage)
   SharedDtor();
 }
 
 void BrokerToClientMessage::SharedDtor() {
-  if (topicname_ != &::google::protobuf::internal::kEmptyString) {
+  if (topicname_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     delete topicname_;
   }
-  if (messagepayload_ != &::google::protobuf::internal::kEmptyString) {
+  if (messagepayload_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     delete messagepayload_;
   }
   if (this != default_instance_) {
@@ -571,15 +593,15 @@ BrokerToClientMessage* BrokerToClientMessage::New() const {
 }
 
 void BrokerToClientMessage::Clear() {
-  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+  if (_has_bits_[0 / 32] & 7) {
     messagetype_ = 0;
     if (has_topicname()) {
-      if (topicname_ != &::google::protobuf::internal::kEmptyString) {
+      if (topicname_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
         topicname_->clear();
       }
     }
     if (has_messagepayload()) {
-      if (messagepayload_ != &::google::protobuf::internal::kEmptyString) {
+      if (messagepayload_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
         messagepayload_->clear();
       }
     }
@@ -590,14 +612,17 @@ void BrokerToClientMessage::Clear() {
 
 bool BrokerToClientMessage::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) return false
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  while ((tag = input->ReadTag()) != 0) {
+  // @@protoc_insertion_point(parse_start:sms.protocol.protobuf.BrokerToClientMessage)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
       // required .sms.protocol.protobuf.BrokerToClientMessage.BrokerToClientMessageType messageType = 1;
       case 1: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+        if (tag == 8) {
           int value;
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
@@ -608,7 +633,7 @@ bool BrokerToClientMessage::MergePartialFromCodedStream(
             mutable_unknown_fields()->AddVarint(1, value);
           }
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(18)) goto parse_topicName;
         break;
@@ -616,16 +641,16 @@ bool BrokerToClientMessage::MergePartialFromCodedStream(
 
       // required string topicName = 2;
       case 2: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+        if (tag == 18) {
          parse_topicName:
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_topicname()));
-          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+          ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
             this->topicname().data(), this->topicname().length(),
-            ::google::protobuf::internal::WireFormat::PARSE);
+            ::google::protobuf::internal::WireFormat::PARSE,
+            "topicname");
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
         if (input->ExpectTag(26)) goto parse_messagePayload;
         break;
@@ -633,23 +658,23 @@ bool BrokerToClientMessage::MergePartialFromCodedStream(
 
       // optional bytes messagePayload = 3;
       case 3: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+        if (tag == 26) {
          parse_messagePayload:
           DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
                 input, this->mutable_messagepayload()));
         } else {
-          goto handle_uninterpreted;
+          goto handle_unusual;
         }
-        if (input->ExpectAtEnd()) return true;
+        if (input->ExpectAtEnd()) goto success;
         break;
       }
 
       default: {
-      handle_uninterpreted:
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          return true;
+          goto success;
         }
         DO_(::google::protobuf::internal::WireFormat::SkipField(
               input, tag, mutable_unknown_fields()));
@@ -657,12 +682,18 @@ bool BrokerToClientMessage::MergePartialFromCodedStream(
       }
     }
   }
+success:
+  // @@protoc_insertion_point(parse_success:sms.protocol.protobuf.BrokerToClientMessage)
   return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:sms.protocol.protobuf.BrokerToClientMessage)
+  return false;
 #undef DO_
 }
 
 void BrokerToClientMessage::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:sms.protocol.protobuf.BrokerToClientMessage)
   // required .sms.protocol.protobuf.BrokerToClientMessage.BrokerToClientMessageType messageType = 1;
   if (has_messagetype()) {
     ::google::protobuf::internal::WireFormatLite::WriteEnum(
@@ -671,16 +702,17 @@ void BrokerToClientMessage::SerializeWithCachedSizes(
 
   // required string topicName = 2;
   if (has_topicname()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
       this->topicname().data(), this->topicname().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE);
-    ::google::protobuf::internal::WireFormatLite::WriteString(
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "topicname");
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       2, this->topicname(), output);
   }
 
   // optional bytes messagePayload = 3;
   if (has_messagepayload()) {
-    ::google::protobuf::internal::WireFormatLite::WriteBytes(
+    ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
       3, this->messagepayload(), output);
   }
 
@@ -688,10 +720,12 @@ void BrokerToClientMessage::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
   }
+  // @@protoc_insertion_point(serialize_end:sms.protocol.protobuf.BrokerToClientMessage)
 }
 
 ::google::protobuf::uint8* BrokerToClientMessage::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
+  // @@protoc_insertion_point(serialize_to_array_start:sms.protocol.protobuf.BrokerToClientMessage)
   // required .sms.protocol.protobuf.BrokerToClientMessage.BrokerToClientMessageType messageType = 1;
   if (has_messagetype()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
@@ -700,9 +734,10 @@ void BrokerToClientMessage::SerializeWithCachedSizes(
 
   // required string topicName = 2;
   if (has_topicname()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+    ::google::protobuf::internal::WireFormat::VerifyUTF8StringNamedField(
       this->topicname().data(), this->topicname().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE);
+      ::google::protobuf::internal::WireFormat::SERIALIZE,
+      "topicname");
     target =
       ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
         2, this->topicname(), target);
@@ -719,6 +754,7 @@ void BrokerToClientMessage::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
         unknown_fields(), target);
   }
+  // @@protoc_insertion_point(serialize_to_array_end:sms.protocol.protobuf.BrokerToClientMessage)
   return target;
 }
 
